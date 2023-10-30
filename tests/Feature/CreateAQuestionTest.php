@@ -22,7 +22,20 @@ it('sould be able to create a new question bigger than 255 characters', function
 });
 
 it('should check if ends with question mark', function () {
+    // Arrange :: preparar
+    $user = User::factory()->create();
+    actingAs($user);
 
+    // Act :: agir
+    $request = post(route('question.store'), [
+        'question' => str_repeat('*', 10), // garantir que passe no test do min necessário
+    ]);
+
+    // Assert :: verificar
+    $request->assertSessionHasErrors([
+        'question' => 'Are you sure that is a question? It is missing the question mark in the end.',
+    ]); // verificar que teve o erro
+    assertDatabaseCount('questions', 0); // e verificar que o erro não foi inserido, ou seja, a question
 });
 
 it('should have at least 10 characters', function () {
@@ -36,6 +49,6 @@ it('should have at least 10 characters', function () {
     ]);
 
     // Assert :: verificar
-    $request->assertSessionHasErrors(['question' => __('validation.min.string', ['min' => 10, 'attribute' => 'question'])]); // verificar que a sessão tem erros fornecidos, pegar a chave que tem as validações com o min
-    assertDatabaseCount('questions', 0);
+    $request->assertSessionHasErrors(['question' => __('validation.min.string', ['min' => 10, 'attribute' => 'question'])]); // verificar que a sessão teve o erro fornecido, pegar a chave que tem as validações com o min
+    assertDatabaseCount('questions', 0); // e verificar que o erro não foi inserido
 });
