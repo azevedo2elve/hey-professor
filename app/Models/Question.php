@@ -17,11 +17,11 @@ class Question extends Model
     }
     public function likes(): Attribute
     {
-        return new Attribute(get: fn () => $this->votes()->sum('like')); //indo para o banco de dados fazer uma consulta e somando todos likes que tem do votes
+        return new Attribute(get: fn () => $this->votes->sum('like')); //indo para o banco de dados fazer uma consulta e somando todos likes que tem do votes
     }
 
     public function unlikes(): Attribute
     {
-        return new Attribute(get: fn () => $this->votes()->sum('unlike'));
+        return new Attribute(get: fn () => $this->votes->sum('unlike'));
     }
 }
