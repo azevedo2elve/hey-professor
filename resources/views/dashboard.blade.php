@@ -7,7 +7,7 @@
     </x-slot>
 
     <x-container>
-        <x-form post :action="route('question.store')">
+        <x-form :action="route('question.store')">
             <x-textarea label="Question" name="question"/>
 
             <x-btn.primary>

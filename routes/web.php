@@ -4,12 +4,6 @@ use App\Http\Controllers\{DashboardController, ProfileController, Question, Ques
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    if (app()->isLocal()) { // se estiver acessando pelo local, autenticar utilizando o login n1 e redirecionar para o dashboard, ou seja, não tem necessidade de criar usuário e ficar fazendo login para entrar no site localmente
-        auth()->loginUsingId(1);
-
-        return to_route('dashboard');
-    }
-
     return view('welcome');
 });
 
