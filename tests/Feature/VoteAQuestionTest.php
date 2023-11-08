@@ -21,3 +21,18 @@ it('should be able to like a question', function () {
     ]);
     // SELECT * FROM votes WHERE question_id = ? AND like = 1 AND unlike = 0 AND user_id = ? EXIST
 });
+
+it('should not be able to like more than 1 time', function () {
+    $user     = User::factory()->create();
+    $question = Question::factory()->create();
+
+    actingAs($user);
+
+    post(route('question.like', $question));
+    post(route('question.like', $question));
+    post(route('question.like', $question));
+    post(route('question.like', $question));
+
+    expect($user->votes()->where('question_id', '=', $question->id)->get())
+        ->toHaveCount(1); // garantir que tenha apenas 1 registro
+});
