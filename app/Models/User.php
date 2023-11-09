@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -44,4 +45,35 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password'          => 'hashed',
     ];
+
+    public function votes(): HasMany // avisar que o user vai ter muitas votações
+    {
+        return $this->hasMany(Vote::class);
+    }
+
+    public function like(Question $question): void // return void
+    {
+        $this->votes()->updateOrCreate(
+            [ // com o metódo vote avisando que tem muitas votações, não precisa passar o user_id
+                'question_id' => $question->id,
+            ],
+            [
+                'like'   => 1,
+                'unlike' => 0,
+            ]
+        );
+    }
+
+    public function unlike(Question $question): void
+    {
+        $this->votes()->updateOrCreate(
+            [ // com o metódo vote avisando que tem muitas votações, não precisa passar o user_id
+                'question_id' => $question->id,
+            ],
+            [
+                'like'   => 0,
+                'unlike' => 1,
+            ]
+        );
+    }
 }
