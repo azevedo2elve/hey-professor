@@ -11,6 +11,11 @@ class Question extends Model
 {
     use HasFactory;
 
+    // cast é conversor, para realmente vir conforme a gente expecificou, no caso o boolean
+    protected $casts = [
+        'draft' => 'boolean',
+    ];
+
     public function votes(): HasMany
     {
         return $this->hasMany(Vote::class);

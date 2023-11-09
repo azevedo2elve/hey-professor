@@ -22,7 +22,12 @@ class QuestionController extends Controller
             ],
         ]);
 
-        Question::query()->create($attributes); // do meu model criar uma query, criar um registro que vai receber o question e vai ter o request()->validate(question) através do $attributes
+        // do meu model criar uma query, criar um registro que vai receber o question e vai ter o request()->validate(question) através do $attributes
+        Question::query()
+            ->create([
+                'question' => request()->question,
+                'draft'    => true,
+            ]);
 
         return to_route('dashboard');
     }

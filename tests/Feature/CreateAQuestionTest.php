@@ -52,3 +52,20 @@ it('should have at least 10 characters', function () {
     $request->assertSessionHasErrors(['question' => __('validation.min.string', ['min' => 10, 'attribute' => 'question'])]); // verificar que a sessão teve o erro fornecido, pegar a chave que tem as validações com o min
     assertDatabaseCount('questions', 0); // e verificar que o erro não foi inserido
 });
+
+it('should create as a draft all the time', function () {
+    // Arrange :: preparar
+    $user = User::factory()->create();
+    actingAs($user);
+
+    // Act :: agir
+    $request = post(route('question.store'), [
+        'question' => str_repeat('*', 260) . '?',
+    ]);
+
+    //Assert :: verificar
+    assertDatabaseHas('questions', [
+        'question' => str_repeat('*', 260) . '?',
+        'draft'    => true,
+    ]);
+});
