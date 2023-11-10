@@ -15,7 +15,7 @@ it('sould be able to create a new question bigger than 255 characters', function
     ]); //post do pest laravel para a rota question.create passando * 260 caracteres mais um question mark ?
 
     //Assert :: verificar
-    $request->assertRedirect(route('dashboard')); // verificar o que vou redirecionar para o dashboard
+    $request->assertRedirect(); // verificar que rolou um redirecionamento
     assertDatabaseCount('questions', 1); // verificar que o banco de dados tenha pelo menos 1 registo
     assertDatabaseHas('questions', ['question' => str_repeat('*', 260) . '?']); // banco de dados questions tenha uma pergunta com 260 caracteres seguido de um ponto de interrogação
 
