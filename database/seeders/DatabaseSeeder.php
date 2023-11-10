@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name'     => 'Gabriel',
             'email'    => 'azevedo@email.com',
-            'password' => 'coberto97',
+            'password' => 'cobertor97',
         ]);
 
         Question::factory()->count(10)->create();
