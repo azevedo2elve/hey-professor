@@ -8,7 +8,7 @@ it('should be able to open a question to edit', function () {
     $user     = User::factory()->create();
     $question = Question::factory()
         ->for($user, 'createdBy')
-        ->create();
+        ->create(['draft' => true]);
 
     actingAs($user);
 
@@ -20,7 +20,7 @@ it('should return a view', function () {
     $user     = User::factory()->create();
     $question = Question::factory()
         ->for($user, 'createdBy')
-        ->create();
+        ->create(['draft' => true]);
 
     actingAs($user);
 
