@@ -9,9 +9,11 @@
     <x-container>
         {{-- listagem --}}
         <div class="dark:text-gray-400 space-y-4">
-            @foreach($questions->where('draft', false) as $item)
+            @foreach($questions as $item)
                 <x-question :question="$item"/>
             @endforeach
+
+            {{ $questions->links() }}
         </div>
     </x-container>
 </x-app-layout>

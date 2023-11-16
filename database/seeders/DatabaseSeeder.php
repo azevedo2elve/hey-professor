@@ -16,6 +16,6 @@ class DatabaseSeeder extends Seeder
             'password' => 'password',
         ]);
 
-        Question::factory()->count(10)->create();
+        Question::factory()->count(100)->create();
     }
 }
