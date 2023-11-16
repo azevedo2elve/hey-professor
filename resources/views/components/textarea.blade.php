@@ -1,6 +1,7 @@
 @props([
     'label',
-    'name'
+    'name',
+    'value' => null
 ])
 
 <div class="mb-4">
@@ -16,7 +17,7 @@
                           "
               name="{{ $name }}"
 
-              placeholder="Ask me anything...">{{ old($name) }}</textarea>
+              placeholder="Ask me anything...">{{ old($name, $value) }}</textarea>
 
     @error($name)
     <span class="text-red-600">{{ $message }}</span>
